@@ -1,8 +1,11 @@
-
+import authRoutes from './routes/auth.routes';
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import pool from './config/db';
+import recipeRoutes from './routes/recipe.routes';
+import savedRoutes from './routes/saved.routes';
+import stepRoutes from './routes/step.routes';
 
 const app = express();
 const PORT = 5000;
@@ -28,6 +31,12 @@ app.use((err: any, req: any, res: any, next: any) => {
   res.status(500).json({ error: 'Ошибка сервера' });
 });
 
+app.use('/api/auth', authRoutes);
+app.use('/api/recipes', recipeRoutes);
+app.use('/api/saved', savedRoutes);
+app.use('/api/steps', stepRoutes);
+
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);
 });
+
